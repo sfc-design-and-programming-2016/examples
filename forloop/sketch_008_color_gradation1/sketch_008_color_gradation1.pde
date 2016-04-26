@@ -1,16 +1,11 @@
-size(400,400);
+size(200,200);
 background(0);
 noFill();
 stroke(255);
 
+strokeWeight(10);
 
 for(int i=10; i<width; i+=15){
-  if(i%2==0){
-    //iが偶数（2で割った余りが0）
-    strokeWeight(3);
-  }
-  else{
-    strokeWeight(1);
-  }
-  ellipse(width/2,height/2,i,i);
+  stroke(i);
+  line(i, 0, i, height);
 }
