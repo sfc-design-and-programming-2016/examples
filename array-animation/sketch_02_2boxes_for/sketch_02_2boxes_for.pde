@@ -25,11 +25,10 @@ void setup(){
 void draw(){
   background(255);
   
-    X[0] = X[0]+VX[0];
-    Y[0] = Y[0]+VY[0];
-    X[1] = X[1]+VX[1];
-    Y[1] = Y[1]+VY[1];
-    rect(X[0],Y[0],10,10);
-    rect(X[1],Y[1],10,10);
+    for(int i=0; i< num; i++){
+     X[i] = X[i] + VX[i];
+     Y[i] = Y[i] + VY[i];
+     rect(X[i],Y[i],10,10);
+    }
 
 }
