@@ -1,0 +1,86 @@
+ArrayList<Particle> particles;
+
+void setup(){
+ size(600,600);
+ particles = new ArrayList<Particle>();
+ noStroke();
+}
+
+void draw(){
+ background(0);
+ 
+ Particle p = new Particle(width/2, height, 6,
+                                  random(-1,1),random(-10,-150),
+                                  color(random(255), random(255), random(255)),1.0);
+ particles.add(p);
+ 
+ for(int i = 0; i<particles.size(); i++){
+   if(particles.get(i).isDead){
+    particles.remove(i); 
+   }
+   particles.get(i).applyForce();
+   particles.get(i).update();
+   particles.get(i).display();
+ }
+}
+
+
+
+class Particle{
+ PVector position;
+ PVector velocity;
+ PVector force;
+ float d;
+ float vx;
+ float vy;
+ color col;
+ float lifetime;
+ boolean isDead;
+ 
+ Particle(float _x, float _y, float _d, float _vx, float _vy, color _col, float _lifetime){
+   position = new PVector(_x, _y);
+   velocity = new PVector(_vx, _vy);
+   force = new PVector(0,0);
+   d = _d;
+   col = _col;
+   lifetime = _lifetime;
+   isDead = false;
+ }
+ 
+ void display(){
+   fill(col); 
+   ellipse(position.x, position.y, d, d);
+ }
+ void update(){
+   lifetime -= 0.005;
+   
+   if(lifetime < 0){
+     isDead = true;
+   }
+   
+   position.add(velocity);
+  
+   if(position.x < d/2){
+      velocity.x *= -1;
+      position.x = d/2;
+   }
+   if(position.x > width - d/2){
+     velocity.x *= -1;
+     position.x = width - d/2;
+   }
+   if(position.y < d/2){
+      velocity.y *= -1;
+      position.y = d/2;
+   }
+   if(position.y > height - d/2){
+     velocity.y *= -1;
+     position.y = height - d/2;
+   }
+ }
+ 
+ void applyForce(){
+     force = new PVector(0, 0.1);
+     velocity.add(force);
+ }
+ 
+}
